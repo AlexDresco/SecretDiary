@@ -1,13 +1,13 @@
 class SecretDiary
-  attr_reader :status, :diary
+  attr_reader :locked, :diary
 
   def initialize
-    @status = "Locked"
+    @locked = true
     @diary = []
   end
 
   def add_entry(text)
-    if @status == "Locked"
+    if @locked == true
       fail "Cannot add entry, locked diary"
     else
       @diary << text
@@ -16,7 +16,7 @@ class SecretDiary
   end
 
   def get_entries
-    if @status == "Locked"
+    if @locked == true
     fail "Cannot get entries, locked diary"
     else
       @diary
@@ -24,11 +24,10 @@ class SecretDiary
   end
 
   def unlock
-    @status = "Unlocked"
+    @locked = false
   end
 
   def lock
-    @status = "Locked"
+    @locked = true
   end
-
 end

@@ -1,9 +1,9 @@
 require 'secret_diary'
 
 describe SecretDiary do
-  describe "#status" do
+  describe "#locked" do
     it "is locked by default" do
-      expect(subject.status).to eq("Locked")
+      expect(subject.locked).to eq true
     end
   end
 
@@ -14,11 +14,9 @@ describe SecretDiary do
   end
 
   describe "#add_entry" do
-    it "Raise an error when accessing add_entry" do
+    it "Raise an error when accessing add_entry initially" do
       expect{subject.add_entry("Hello")}.to raise_error("Cannot add entry, locked diary")
     end
-
-    it { is_expected.to respond_to(:add_entry).with(1).argument }
 
     it "add entry to the diary" do
       subject.unlock
@@ -26,20 +24,29 @@ describe SecretDiary do
       expect(subject.get_entries).to eq(["Hello"])
     end
 
+    it "when diary is locked, raise error when adding entry" do
+      subject.unlock
+      subject.lock
+      expect{subject.add_entry("Hello")}.to raise_error("Cannot add entry, locked diary")
+    end
   end
 
   describe "#get_entries" do
-    it "Raise an error when accessing get_entries" do
+    it "Raise an error when accessing get_entries initially" do
+      expect{subject.get_entries}.to raise_error("Cannot get entries, locked diary")
+    end
+    
+    it "when diary is locked, raise error when adding entry" do
+      subject.unlock
+      subject.lock
       expect{subject.get_entries}.to raise_error("Cannot get entries, locked diary")
     end
   end
 
   describe "#unlock" do
-    it { is_expected.to respond_to :unlock }
-
-    it "should unlock the diary by returning @status = unlocked" do
+    it "should unlock the diary by returning @locked = false" do
       subject.unlock
-      expect(subject.status).to eq("Unlocked")
+      expect(subject.locked).to eq false
     end
 
     it "when diary is unlocked, add entry should returns entry" do
@@ -55,10 +62,10 @@ describe SecretDiary do
     end
   end
 
-   describe "#lock" do
-     it "should lock the diary by returning a locked status" do
-       subject.lock
-       expect(subject.status).to eq("Locked")
-     end
+ describe "#lock" do
+   it "should lock the diary" do
+     subject.lock
+     expect(subject.locked).to eq true
    end
+ end
 end

@@ -43,3 +43,5 @@ diary.get_entries
 diary.lock
 diary.get_entries
 # Should return error, diary is locked
+diary.add_entry"Hello"
+# Should return error, diary is locked
