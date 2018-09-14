@@ -2,7 +2,7 @@ Secret Diary - Learning about encapsulation
 ============================================
 
 
-##User story:
+## User story:
 SecretDiary
   - lock
   - unlock
@@ -15,7 +15,7 @@ When the user calls `unlock`, `add_entry` and `get_entries` should work as desir
 
 When the user calls `lock` again they throw errors again.
 
-##Feature test:
+## Feature test:
 
 ```ruby load './lib/secret_diary.rb'
 diary = SecretDiary.new
