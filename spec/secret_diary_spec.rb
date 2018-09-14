@@ -35,7 +35,7 @@ describe SecretDiary do
     it "Raise an error when accessing get_entries initially" do
       expect{subject.get_entries}.to raise_error("Cannot get entries, locked diary")
     end
-    
+
     it "when diary is locked, raise error when adding entry" do
       subject.unlock
       subject.lock

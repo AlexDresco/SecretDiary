@@ -1,3 +1,5 @@
+require 'lock'
+
 class SecretDiary
   attr_reader :locked, :diary
 
