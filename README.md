@@ -65,3 +65,10 @@ diary.get_entries
 # Should return error, diary is locked
 diary.add_entry"Hello"
 # Should return error, diary is locked
+
+load './lib/secret_diary.rb'
+load './lib/lock.rb'
+diary = SecretDiary.new
+lock = Lock.new
+# Lock is on by default @lock == true
+diary = add_entry
